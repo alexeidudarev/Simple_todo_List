@@ -20,7 +20,7 @@ class TodoListViewController: UITableViewController {
             itemArray = items
         }
         else{
-            //itemArray = defaults.array(forKey: "TodoListArray")as![String]
+           
         }
     }
     
