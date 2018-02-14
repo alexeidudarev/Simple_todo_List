@@ -49,6 +49,12 @@ class TodoListViewController: UITableViewController {
         //bacause the item is now an item and no a string
         cell.textLabel?.text = itemArray[indexPath.row].title
         
+        if itemArray[indexPath.row].done == true{
+            cell.accessoryType = .checkmark
+        }else{
+            cell.accessoryType = .none
+        }
+        
         return cell
     }
     
@@ -78,7 +84,10 @@ class TodoListViewController: UITableViewController {
         var textField = UITextField()
         let alert = UIAlertController(title: "Add new item", message: "", preferredStyle: .alert)
         let action  = UIAlertAction(title: "Add item", style: .default) { (action) in
-            self.itemArray.append(textField.text!)
+            let newItem : Item = Item()
+            newItem.title = textField.text!
+            self.itemArray.append(newItem)
+            
             self.defaults.set(self.itemArray, forKey: "TodoListArray")
             self.tableView.reloadData()
         }
