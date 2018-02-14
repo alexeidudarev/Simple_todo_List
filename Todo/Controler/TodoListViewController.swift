@@ -32,9 +32,9 @@ class TodoListViewController: UITableViewController {
         
         
         // Do any additional setup after loading the view, typically from a nib.
-//        if let items = defaults.array(forKey: "TodoListArray")as?[String]{
-//            itemArray = items
-//        }
+        if let items = defaults.array(forKey: "TodoListArray")as?[Item]{
+            itemArray = items
+        }
         
     }
     
@@ -47,13 +47,20 @@ class TodoListViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoItemCell", for: indexPath)
         //bacause the item is now an item and no a string
+         let item :Item = itemArray[indexPath.row]
+        cell.textLabel?.text = item.title
+        
+        //ternary operator
+        cell.accessoryType = item.done ? .checkmark : .none
+        
         cell.textLabel?.text = itemArray[indexPath.row].title
         
-        if itemArray[indexPath.row].done == true{
-            cell.accessoryType = .checkmark
-        }else{
-            cell.accessoryType = .none
-        }
+        //old version
+//        if itemArray[indexPath.row].done == true{
+//            cell.accessoryType = .checkmark
+//        }else{
+//            cell.accessoryType = .none
+//        }
         
         return cell
     }
@@ -62,6 +69,8 @@ class TodoListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //shortway
+       
+    
         itemArray[indexPath.row].done  = !itemArray[indexPath.row].done
         
         //long way
