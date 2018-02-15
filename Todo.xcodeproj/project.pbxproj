@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6D2417942034318500ECC368 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2417932034318500ECC368 /* Item.swift */; };
 		6DB58FCA20346DEF000F005D /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DB58FC820346DEF000F005D /* DataModel.xcdatamodeld */; };
 		DE9A4F7120321CFB0095B6BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9A4F7020321CFB0095B6BD /* AppDelegate.swift */; };
 		DE9A4F7320321CFB0095B6BD /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9A4F7220321CFB0095B6BD /* TodoListViewController.swift */; };
@@ -17,7 +16,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6D2417932034318500ECC368 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		6DB58FC920346DEF000F005D /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		DE9A4F6D20321CFB0095B6BD /* Todo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE9A4F7020321CFB0095B6BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -42,7 +40,6 @@
 		6D241795203431C800ECC368 /* Data model */ = {
 			isa = PBXGroup;
 			children = (
-				6D2417932034318500ECC368 /* Item.swift */,
 				6DB58FC820346DEF000F005D /* DataModel.xcdatamodeld */,
 			);
 			path = "Data model";
@@ -176,7 +173,6 @@
 			files = (
 				DE9A4F7320321CFB0095B6BD /* TodoListViewController.swift in Sources */,
 				6DB58FCA20346DEF000F005D /* DataModel.xcdatamodeld in Sources */,
-				6D2417942034318500ECC368 /* Item.swift in Sources */,
 				DE9A4F7120321CFB0095B6BD /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

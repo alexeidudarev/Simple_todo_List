@@ -7,26 +7,30 @@
 //
 
 import UIKit
+import CoreData
 
 class TodoListViewController: UITableViewController {
     
-    var itemArray : [Item] = [Item]()
+    var itemArray = [Item]()
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     //let defaults = UserDefaults.standard
-    
-    let dataFilePath = FileManager.default.urls(for:
-        .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Alexei.plist")
+    //let dataFilePath = FileManager.default.urls(for:
+     //   .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Alexei.plist")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+        //to show saving directory
+        print(FileManager.default.urls(for:
+            .documentDirectory, in: .userDomainMask))
         
         //to print file paht of saved file on emulator
 //        let path = FileManager.default.urls(for:
 //            .documentDirectory, in: .userDomainMask).first
 //        print(path!)
-        loadItems()
+        
+        //loadItems()
         
         // Do any additional setup after loading the view, typically from a nib.
 //        if let items = defaults.array(forKey: "TodoListArray")as?[Item]{
@@ -44,7 +48,8 @@ class TodoListViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoItemCell", for: indexPath)
         //bacause the item is now an item and no a string
-         let item :Item = itemArray[indexPath.row]
+        let item : Item = itemArray[indexPath.row]
+        
         cell.textLabel?.text = item.title
         
         //ternary operator
@@ -92,8 +97,11 @@ class TodoListViewController: UITableViewController {
         var textField = UITextField()
         let alert = UIAlertController(title: "Add new item", message: "", preferredStyle: .alert)
         let action  = UIAlertAction(title: "Add item", style: .default) { (action) in
-            let newItem : Item = Item()
+            
+            
+            let newItem = Item(context: self.context)
             newItem.title = textField.text!
+            newItem.done = false
             self.itemArray.append(newItem)
             
             //saving file function calling
@@ -111,29 +119,26 @@ class TodoListViewController: UITableViewController {
     }
     //Mark: - Model Manipulation method
     func saveItems(){
-        //create an encoder
-        let encoder : PropertyListEncoder = PropertyListEncoder()
+        
         do{
-            let data = try encoder.encode(itemArray)
-            //writing our data custumfile
-            try data.write(to: dataFilePath!)
+            try context.save()
         }catch{
-            print("Error saving item array:\(error)")
+            print("Error saving context: \(error)")
         }
         
     }
-    func loadItems(){
-        do{
-            let data = try Data(contentsOf: dataFilePath!)
-            let decoder : PropertyListDecoder = PropertyListDecoder()
-            //this method that decodes our data .we have specify what is the data type of
-            //the decoded value. self so it will know that we are reffering
-            //to our Item type and not an object
-            itemArray = try decoder.decode([Item].self, from: data)
-        }catch{
-            print("Eror while encoding array:\(error)")
-        }
-      
+//    func loadItems(){
+//        do{
+//            let data = try Data(contentsOf: dataFilePath!)
+//            let decoder : PropertyListDecoder = PropertyListDecoder()
+//            //this method that decodes our data .we have specify what is the data type of
+//            //the decoded value. self so it will know that we are reffering
+//            //to our Item type and not an object
+//            itemArray = try decoder.decode([Item].self, from: data)
+//        }catch{
+//            print("Eror while encoding array:\(error)")
+//        }
+    
         
         //swifty way of code optional try
 //        if let dataTwo = try? Data(contentsOf : dataFilePath!){
@@ -145,7 +150,7 @@ class TodoListViewController: UITableViewController {
 //            }
 //        }
         
-    }
+//   }
     
 }
 
