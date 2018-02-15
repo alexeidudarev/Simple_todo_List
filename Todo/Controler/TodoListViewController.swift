@@ -88,8 +88,10 @@ class TodoListViewController: UITableViewController {
 //        }else{
 //            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
 //        }
-        tableView.reloadData()
         saveItems()
+        
+        //tableView.reloadData()
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -125,7 +127,7 @@ class TodoListViewController: UITableViewController {
         }catch{
             print("Error saving context: \(error)")
         }
-        
+        self.tableView.reloadData()
     }
 //    func loadItems(){
 //        do{
