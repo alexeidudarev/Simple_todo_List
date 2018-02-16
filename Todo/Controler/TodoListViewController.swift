@@ -30,7 +30,7 @@ class TodoListViewController: UITableViewController {
 //            .documentDirectory, in: .userDomainMask).first
 //        print(path!)
         
-        //loadItems()
+        loadItems()
         
         // Do any additional setup after loading the view, typically from a nib.
 //        if let items = defaults.array(forKey: "TodoListArray")as?[Item]{
@@ -74,6 +74,7 @@ class TodoListViewController: UITableViewController {
        
     
         itemArray[indexPath.row].done  = !itemArray[indexPath.row].done
+        saveItems()
         
         //long way
 //        if itemArray[indexPath.row].done == false{
@@ -88,7 +89,7 @@ class TodoListViewController: UITableViewController {
 //        }else{
 //            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
 //        }
-        saveItems()
+        
         
         //tableView.reloadData()
         
@@ -129,19 +130,13 @@ class TodoListViewController: UITableViewController {
         }
         self.tableView.reloadData()
     }
-//    func loadItems(){
-//        do{
-//            let data = try Data(contentsOf: dataFilePath!)
-//            let decoder : PropertyListDecoder = PropertyListDecoder()
-//            //this method that decodes our data .we have specify what is the data type of
-//            //the decoded value. self so it will know that we are reffering
-//            //to our Item type and not an object
-//            itemArray = try decoder.decode([Item].self, from: data)
-//        }catch{
-//            print("Eror while encoding array:\(error)")
-//        }
-    
-        
+    func loadItems(){
+        let request : NSFetchRequest<Item> = Item.fetchRequest()
+        do{
+            itemArray = try context.fetch(request)
+        }catch{
+            print("Error while fetching data form context: \(error)")
+        }
         //swifty way of code optional try
 //        if let dataTwo = try? Data(contentsOf : dataFilePath!){
 //            let decoderTwo : PropertyListDecoder = PropertyListDecoder()
@@ -152,7 +147,7 @@ class TodoListViewController: UITableViewController {
 //            }
 //        }
         
-//   }
+   }
     
 }
 
