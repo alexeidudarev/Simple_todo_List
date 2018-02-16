@@ -67,7 +67,7 @@ class TodoListViewController: UITableViewController {
         return cell
     }
     
-    //Mark: - TableView Delegates Methods
+    //MARK: - TableView Delegates Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //shortway
@@ -120,7 +120,9 @@ class TodoListViewController: UITableViewController {
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
-    //Mark: - Model Manipulation method
+    
+    //MARK: - Model Manipulation method
+    
     func saveItems(){
         
         do{
@@ -130,13 +132,17 @@ class TodoListViewController: UITableViewController {
         }
         self.tableView.reloadData()
     }
-    func loadItems(){
-        let request : NSFetchRequest<Item> = Item.fetchRequest()
+    func loadItems(with request : NSFetchRequest<Item> = Item.fetchRequest()){
+       
         do{
             itemArray = try context.fetch(request)
         }catch{
             print("Error while fetching data form context: \(error)")
         }
+        
+        tableView.reloadData()
+        
+        
         //swifty way of code optional try
 //        if let dataTwo = try? Data(contentsOf : dataFilePath!){
 //            let decoderTwo : PropertyListDecoder = PropertyListDecoder()
@@ -148,7 +154,26 @@ class TodoListViewController: UITableViewController {
 //        }
         
    }
+
     
+}
+//MARK: - search bar methods
+extension TodoListViewController : UISearchBarDelegate{
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        let request : NSFetchRequest<Item> = Item.fetchRequest()
+    
+        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+        
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        
+        loadItems(with: request)
+
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        loadItems()
+    }
 }
 
 
