@@ -11,7 +11,7 @@ import RealmSwift
 
 class Item: Object {
     @objc dynamic var title : String = ""
-    @objc dynamic var date : String = ""
+    @objc dynamic var date : Date?
     @objc dynamic var done : Bool = false
     
     
