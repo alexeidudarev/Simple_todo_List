@@ -118,7 +118,7 @@ static const NSTimeInterval RLMRefreshBuffer = 10;
         NSDate *fireDate = [RLMSyncSessionRefreshHandle fireDateForTokenExpirationDate:dateWhenTokenExpires
                                                                                nowDate:[NSDate date]];
         if (!fireDate) {
-            unregisterRefreshHandle(_user, _path);
+            unregisterRefreshHandle(self->_user,self->_path);
             return;
         }
         self.timer = [[NSTimer alloc] initWithFireDate:fireDate
