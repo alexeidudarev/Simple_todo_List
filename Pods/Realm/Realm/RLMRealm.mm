@@ -89,7 +89,7 @@ static void RLMAddSkipBackupAttributeToItemAtPath(std::string const& path) {
     // called synchronously by the obj-c code and not by the object store.
     auto notificationBlock = _block;
     _block = ^(RLMNotification, RLMRealm *) {
-        _block = notificationBlock;
+        self->_block = notificationBlock;
     };
 }
 
